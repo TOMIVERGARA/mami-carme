@@ -29,77 +29,59 @@ module.exports = {
 
         //Defines Menu Pages(Structure)
         const pages = {
-            '1️⃣': {
+            '🎂': {
                 embed: {
                     ...embeedSettings,
-                    title: 'Recordatorios ⏰',
-                    description: `Estas son todas las opciones de recordatorios. Selecciona la reaccion segun corresponda.`,
+                    title: 'Cumpleaños 🎂',
+                    description: `Estas son todas las opciones para cumpleaños. Selecciona la reaccion segun corresponda.`,
                     fields: [
                         {
-                            name: "🎂 Cumpleaños",
-                            value: "➥ Lista de los cumpleañeros del dia."
+                            name: 'Los cumpleañeros del dia son:',
+                            value: await getTodayBirthday()
                         },
                         {
-                            name: "📔 Tareas",
-                            value: "➥ Recopilatorio de las tareas pendientes."
+                            name: "\u200b",
+                            value: "🔍 *****Opciones Disponibles:*****"
+                        },
+                        {
+                            name: "1️⃣ Añadir un Cumpleañero",
+                            value: "➥ Enlace Web para añadir un nuevo cumpleañero."
+                        },
+                        {
+                            name: "2️⃣ Generar Story",
+                            value: "➥ Genera la imagen para story con los nombres de los cumpleañeros."
                         }
                     ]
                 },
-                reactions: ['🎂', '📔'],
+                reactions: ['1️⃣', '2️⃣'],
                 pages: {
-                    '🎂': {
+                    '1️⃣': {
                         backEmoji: '⏪',
                         embed: {
-                            ...embeedSettings,
-                            title: 'Cumpleaños 🎂',
-                            description: `Estas son todas las opciones para cumpleaños. Selecciona la reaccion segun corresponda.`,
+                            title: 'Añadir un cumpleaños',
                             fields: [
                                 {
-                                    name: 'Los cumpleañeros del dia son:',
-                                    value: await getTodayBirthday()
-                                },
-                                {
-                                    name: "\u200b",
-                                    value: "🔍 *****Opciones Disponibles:*****"
-                                },
-                                {
-                                    name: "1️⃣ Añadir un Cumpleañero",
-                                    value: "➥ Enlace Web para añadir un nuevo cumpleañero."
-                                },
-                                {
-                                    name: "2️⃣ Generar Story",
-                                    value: "➥ Genera la imagen para story con los nombres de los cumpleañeros."
+                                    name: 'Podes añadir un nuevo cumpleañero desde la web:',
+                                    value: `> [Añadir Cumpleaños](${process.env.DEPLOYMENT_URL}${api.endpoints.add_birthday})`
                                 }
                             ]
-                        },
-                        reactions: ['1️⃣', '2️⃣'],
-                        pages: {
-                            '1️⃣': {
-                                backEmoji: '⏪',
-                                embed: {
-                                    title: 'Añadir un cumpleaños',
-                                    fields: [
-                                        {
-                                            name: 'Podes añadir un nuevo cumpleañero desde la web:',
-                                            value: `> [Añadir Cumpleaños](${process.env.DEPLOYMENT_URL}${api.endpoints.add_birthday})`
-                                        }
-                                    ]
-                                }
-                            },
-                            '2️⃣': {
-                                backEmoji: '⏪',
-                                embed: {
-                                    color: 15087942,
-                                    image: {
-                                        url: `${process.env.ENV == "DEVELOPMENT" ? 'https://i.imgur.com/VdTFube.png': `${process.env.DEPLOYMENT_URL}/${api.endpoints.get_today_birthday_story}`}`
-                                     }
-                                }
-                            }
+                        }
+                    },
+                    '2️⃣': {
+                        backEmoji: '⏪',
+                        embed: {
+                            color: 15087942,
+                            image: {
+                                url: `${process.env.ENV == "DEVELOPMENT" ? 'https://i.imgur.com/VdTFube.png': `${process.env.DEPLOYMENT_URL}/${api.endpoints.get_today_birthday_story}`}`
+                             }
                         }
                     }
                 }
             },
-            '2️⃣': {
+            '🧑‍💻': {
+
+            },
+            '🗂': {
 
             }
         }
@@ -112,8 +94,9 @@ module.exports = {
               .setAuthor('Carmela aka. Mami Carme', 'https://cdn-virtual.miescueladigital.com.ar/prod/picture/profile-thumb/becac416-5d7c-48b3-b753-580a2290369c', 'https://instagram.com/carmeintili?igshid=s3bczf05fdtt')
               .setDescription('Aca tenes todo lo que puedo hacer por vos bb. Selecciona la reaccion segun corresponda.')
               .addFields(
-                  { name: "1️⃣ ***Recordatorios***", value: "➥ Cumpleaños, Tareas, Eventos, etc." },
-                  { name: "2️⃣ ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." },
+                  { name: "🎂 ***Cumpleaños***", value: "➥ Lista de los cumpleañeros del dia." },
+                  { name: "🧑‍💻 ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." },
+                  { name: "🗂 ***Monday.com***", value: "➥ Añadir tareas, cosultar pendientes." },
               )
               .setTimestamp()
               .setFooter(`${user.username}`, `${user.displayAvatarURL({ dynamic: true })}`);
