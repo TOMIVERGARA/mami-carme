@@ -1,0 +1,22 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
+
+// Set your brand colors
+$primary: #d1414c;
+$link: #0081CF;
+$info: #008E9B;
+$success: #00C9A7;
+$warning: #FFC75F;
+$danger: #C34A36;
+$dark: #222831;
+$text: #4B4453;
+$text-strong: #222831;
+
+$card-radius: 0.80rem;
+
+// Update some of Bulma's component variables
+$body-background-color: #f1f1f1;
+
+@import "../bulma-0.9.1/bulma.sass";

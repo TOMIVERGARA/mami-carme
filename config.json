@@ -1,0 +1,13 @@
+{
+    "user_settings": {
+       "delete_trigger_msg": true,
+       "delete_expired_embed": true
+    },
+    "api": {
+        "endpoints": {
+            "add_birthday": "/birthday/add_birthday",
+            "add_birthday_service": "/api/v1/birthday/add_birthday",
+            "get_today_birthday_story": "/api/v1/birthday/get_today_story"
+        }
+    }
+}
