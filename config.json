@@ -5,9 +5,13 @@
     },
     "api": {
         "endpoints": {
+            "index": "/",
+            "birthday": "/birthday",
             "add_birthday": "/birthday/add_birthday",
             "add_birthday_service": "/api/v1/birthday/add_birthday",
-            "get_today_birthday_story": "/api/v1/birthday/get_today_story"
+            "get_today_birthday_story": "/api/v1/birthday/get_today_story",
+            "get_birthday_by_date": "/api/v1/birthday/get_birthday_by_date",
+            "remove_single_by_id": "/api/v1/birthday/remove_single_by_id"
         }
     }
 }
