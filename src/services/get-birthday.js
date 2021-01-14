@@ -28,7 +28,14 @@ class birthdayList {
     }
 }
 
-module.exports.getTodayBirthday = async () => {
+
+/**
+ * Generates a markdown formatted string with today's birthdays.
+ * @function
+ * @async
+ * @returns {String}
+ */
+module.exports.getTodayBirthdayFormatted = async () => {
     const date = new Date();
     const today = new Intl.DateTimeFormat(process.env.TIMEZONE, {
       day: '2-digit',
@@ -45,6 +52,12 @@ module.exports.getTodayBirthday = async () => {
 
 }
 
+/**
+ * Gets an array with today's birthdays.
+ * @function
+ * @async
+ * @returns {Array}
+ */
 module.exports.getTodayBirthdayArray = async () => {
     const date = new Date();
     const today = new Intl.DateTimeFormat(process.env.TIMEZONE, {
@@ -60,5 +73,27 @@ module.exports.getTodayBirthdayArray = async () => {
         return [{ name: 'Error al buscar en la DB.', role: 'DB:Error', class: 'Error - DB' }];
     }
 
+}
+
+//EXPRESS ROUTE
+/**
+ * Gets the birthday information of a given date.
+ * @function
+ * @async
+ * @param {Object} req
+ * @param {Object} res
+ * @returns {Object}
+ */
+module.exports.getBirthdayByDate = async (req, res) => {
+    const dateParts = req.query.dateStr.split("-");
+    const date = `${dateParts[2].replace(/^0+(?!$)/, '')}/${dateParts[1].replace(/^0+(?!$)/, '')}`;
+
+    try {
+        const document = await Birthday.findOne({date: date});
+        if(!document) return res.status(200).send({ status: 'success', data: { message: 'Get a birthday document', document: []} });
+        return res.status(200).send({ status: 'success', data: { message: 'Get a birthday document', id: document._id, document: new birthdayList(document).createArray()} });
+    } catch (error) {
+        return res.status(500).send({ status: 'error', error: { code: '103', message: 'There was an error while getting the document.', target: 'db', error: error } });
+    }
 }
 
