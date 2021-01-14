@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 const { ReactionCollector } = require('discord.js-collector');
 const { result } = require('lodash');
-const { getTodayBirthday } = require('../services/get-birthday');
+const { getTodayBirthdayFormatted } = require('../services/get-birthday');
 const { api, user_settings } = require('../../config.json');
 
 module.exports = {
@@ -37,7 +37,7 @@ module.exports = {
                     fields: [
                         {
                             name: 'Los cumpleañeros del dia son:',
-                            value: await getTodayBirthday()
+                            value: await getTodayBirthdayFormatted()
                         },
                         {
                             name: "\u200b",
