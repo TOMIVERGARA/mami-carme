@@ -65,7 +65,7 @@ module.exports.addBirthday = async (req, res) => {
                return res.status(200).send({ status: 'success', data: { message: 'Updated a birthday document.', document: result} });
            })
            .catch(error => {
-               return res.status(400).send({ status: 'error', error: { code: '100', message: 'There was an error updating the document.', target: 'db', error: error } });
+               return res.status(500).send({ status: 'error', error: { code: '100', message: 'There was an error updating the document.', target: 'db', error: error } });
            })
     }else{
         handler.addNewBirthdayDocument()
@@ -73,7 +73,7 @@ module.exports.addBirthday = async (req, res) => {
                return res.status(200).send({ status: 'success', data: { message: 'Inserted new birthday document.', document: result} });
            })
            .catch(error => {
-               return res.status(400).send({ status: 'error', error: { code: '100', message: 'There was an error updating the document.', target: 'db', error: error } });
+               return res.status(500).send({ status: 'error', error: { code: '100', message: 'There was an error updating the document.', target: 'db', error: error } });
            })
     }
 }
