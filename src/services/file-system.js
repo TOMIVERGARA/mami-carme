@@ -2,6 +2,16 @@ const fs = require('fs-extra');
 const { getDynamicStoryImg } = require('./gen-birthday-story');
 
 //EXPRESS ROUTE
+module.exports.index = (req, res) => {
+  res.sendFile('public/index.html', { root: '.' });
+}
+
+//EXPRESS ROUTE
+module.exports.birthday = (req, res) => {
+  res.sendFile('public/birthday/index.html', { root: '.' });
+}
+
+//EXPRESS ROUTE
 module.exports.addBirthday = (req, res) => {
     res.sendFile('public/birthday/add-birthday.html', { root: '.' });
 }
