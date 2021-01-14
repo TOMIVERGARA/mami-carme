@@ -6,14 +6,14 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <!-- Imports Main.css -->
-    <link rel="stylesheet" href="../css/bulma/build/main.css">
-    <link rel="stylesheet" href="../css/bulma/build/custom.css">
+    <link rel="stylesheet" href="./css/bulma/build/main.css">
+    <link rel="stylesheet" href="./css/bulma/build/custom.css">
     <!-- Align Utilities -->
     <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet">
     <!-- ToastedJS Notifications -->
     <link rel="stylesheet" href="https://unpkg.com/toastedjs/dist/toasted.min.css">
 
-    <title>Add Birthday</title>
+    <title>Mami Carme</title>
 </head>
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
@@ -29,7 +29,7 @@
         </div>
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
-            <a href="/" class="navbar-item">
+            <a class="navbar-item is-tab is-active">
               Home
             </a>
             <a class="navbar-item">
@@ -40,7 +40,7 @@
                 More
               </a>
               <div class="navbar-dropdown">
-                <a href="/birthday" class="navbar-item is-tab is-active">
+                <a href="/birthday" class="navbar-item">
                   Cumpleaños
                 </a>
                 <a class="navbar-item">
@@ -74,55 +74,34 @@
         <!-- Main Body -->
         <section class="section">
             <div class="container">
-                <div class="tile is-4 mx-auto">
+                <div class="columns">
+                  <div class="column is-4">
                   <div class="card">
                     <div class="card-content">
-                      <p class="title">
-                        Añadir Cumpleaños
-                      </p>
                       <p class="subtitle">
-                        Añadir nuevos cumpleaños a la DB.
+                        Cumpleañeros del dia <b><span id="date" class="tag is-primary is-light"></span></b>
                       </p>
-                      <form id="addBirthdayForm">
-                        <div class="field">
-                          <label class="label">Nombre</label>
-                          <div class="control">
-                            <input class="input" id="name" name="name" type="text" placeholder="Ex. Florencia Diaz" required>
-                          </div>
-                          <p class="help is-danger" id="name_help"></p>
-                        </div>
-                        <div class="control mb-3">
-                          <label class="radio">
-                            <input type="radio" id="role" name="role" value="student" checked onchange="setSelectOptions('student')">
-                            Estudiante
-                          </label>
-                          <label class="radio">
-                            <input type="radio" id="role" name="role" value="teacher" onchange="setSelectOptions('teacher')">
-                            Profesor
-                          </label>
-                        </div>
-                        <div class="field">
-                        <label class="label">Cumpleaños</label>
-                          <div class="control">
-                            <input class="input" id="birthday" name="birthday" type="date" placeholder="21/10/2021" required>
-                          </div>
-                        </div>
-                        <div class="field">
-                          <label class="label">Clase</label>
-                          <div class="control">
-                            <div class="select fullwidth">
-                              <select class="fullwidth" id="classes" name="classes" required>
-                                <option>Selecciona una clase</option>
-                              </select>
-                            </div>
-                          </div>
-                        </div>
-                      </form>
+                      <figure class="image">
+                        <img src="http://localhost:3000/api/v1/birthday/get_today_story">
+                      </figure>
                     </div>
                     <footer class="card-footer">
-                      <a class="card-footer-item" href="/birthday">Cancelar</a>
-                      <a class="card-footer-item" onclick="submitForm(event)" >Añadir</a>
+                      <a class="card-footer-item" href="http://localhost:3000/api/v1/birthday/get_today_story" download>Descargar</a>
                     </footer>
+                  </div>
+                  </div>
+                  <div class="column is-8">
+                    <div class="card">
+                        <div class="card-content">
+                          <p class="title">
+                            Home
+                          </p>
+                        </div>
+                        <footer class="card-footer">
+                          <a class="card-footer-item">Cancelar</a>
+                          <a class="card-footer-item" onclick="submitForm(event)" >Añadir</a>
+                        </footer>
+                      </div>
                   </div>
                 </div>
             </div>
@@ -144,5 +123,5 @@
 <!-- ToastedJS Notifications -->
 <script src="https://unpkg.com/toastedjs/dist/toasted.min.js"></script>
 <!-- Controllers -->
-<script src="./controller.add-birthday.js"></script>
+<script src="./controller.index.js"></script>
 </html>

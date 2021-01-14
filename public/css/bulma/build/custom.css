@@ -11,3 +11,20 @@ body {
 .fullwidth {
   width: 100% !important;
 }
+
+.calendar {
+   color: black !important;
+}
+
+.calendar a {
+  color: #262930 !important;
+}
+
+.calendar button {
+  background-color: #d1414b !important;
+  border-color: #da676f !important;
+}
+
+.fc-day-today{
+  background-color:#fbefef !important;
+}
