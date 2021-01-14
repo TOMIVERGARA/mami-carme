@@ -9,6 +9,7 @@ lerna-debug.log*
 
 #Untracked Files
 *.ai
+*.notes
 .sass-cache
 .DS_Store
 bulma-0.9.1
