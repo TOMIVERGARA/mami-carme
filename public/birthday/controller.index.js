@@ -46,12 +46,12 @@ const toggleDisplay = (element) => {
 }
 
 //Templates
-const panelBlockTemplate = (people, documentId) => html`
+const panelBlockTemplate = (people, documentId) => html.node`
     <div>
-      ${people.map(person => html`
+      ${people.map(person => html.node`
          <a class="panel-block flex justify-between">
            <div>
-              <span>${person.name} - <span class="tag is-primary is-light is-rounded mr-2">${person.class}</span><span class="tag is-primary is-light is-rounded">${person.role}</span></span>
+              <span>${person.name} - <span class="tag is-primary is-light is-rounded mr-2">${person.class}</span></span>
            </div>
            <div>
              <button class="button is-danger is-small is-light" data-documentId=${documentId} data-name=${person.name} onclick=${deleteSingleByName}><i class="fas fa-trash" aria-hidden="true"></i></button>
@@ -92,18 +92,22 @@ class BirthdayPanel{
     }
 
     configurePanel(){
-        document.getElementById('panelHeading').innerText = this.date
-        document.getElementById('deleteAllButton').style.display = "block";
-        if(!this.people.length){
-            toggleDisplay('deleteAllButton');
-            document.getElementById('blocks').innerHTML = '<div class="tile is-5 mx-auto pt-3"><span class="tag is-primary is-light is-rounded mx-auto">No hay cumpleaños!</span></div>'
+        document.getElementById('panelHeading').innerText = this.date;
+        var deleteAllButton = document.getElementById('deleteAll');
+        deleteAllButton.style.display = "block";
+        if(!this._id){
+            toggleDisplay('deleteAll');
+            document.getElementById('blocks').innerHTML = '<div class="tile is-5 mx-auto pt-3"><span class="tag is-primary is-light is-rounded mx-auto">No hay cumpleaños!</span></div>';
         }else{
-            render(document.getElementById('blocks'), panelBlockTemplate(this.people, this._id));
+            deleteAllButton.setAttribute('data-id', this._id);
+            document.getElementById('blocks').innerHTML = null;
+            document.getElementById('blocks').appendChild(panelBlockTemplate(this.people, this._id));
         }
     }
 }
 
 var PanelHandler;
+var counter = 0;
 const loadCalendar = () => {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -118,8 +122,10 @@ const loadCalendar = () => {
           if (date.get('date') == today.get('date')){ cell.css("background", "#da676f")} ;
       },
       dateClick: date => {
+        PanelHandler = null; //DELETES ALL INSTANCS OF THE CLASS
         PanelHandler = new BirthdayPanel(date.dateStr);
-        PanelHandler.getBirthday();
+        PanelHandler.getBirthday(counter ? true : false);
+        counter = 1;
       }
     });
     calendar.render();
@@ -141,6 +147,28 @@ const deleteSingleByName = (e) => {
             },
             error: error => {
                 Toast.show('Hubo un error al eliminar el cumpleaños 😭');
+                console.log(error);
+            }
+        });
+    }
+}
+
+const deleteDocumentById = (e) => {
+    if (window.confirm("🧐 Estas seguro de que queres eliminar todos los cumpleaños de esta fecha?")) {
+       console.log(e.currentTarget.dataset.id,)
+        $.ajax({
+            type:"DELETE",
+            url:"../../api/v1/birthday/remove_document_by_id",
+            data:{
+                documentId: e.currentTarget.dataset.id,
+            },
+            dataType: 'json',
+            success: () => {
+                Toast.show('Documento Eliminado 🥳');
+                PanelHandler.getBirthday(true)
+            },
+            error: error => {
+                Toast.show('Hubo un error al eliminar el documento 😭');
                 console.log(error);
             }
         });
