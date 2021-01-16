@@ -73,10 +73,12 @@ const submitForm = (e) => {
             dataType: 'json',
             success: () => {
                 document.querySelector('#addBirthdayForm').reset();
+                start()
                 Toast.show('Nuevo cumpleaños añadido 🥳');
             },
             error: error => {
                 document.querySelector('#addBirthdayForm').reset();
+                start()
                 Toast.show('Hubo un error al añadir el cumpleaños 😭');
                 console.log(error);
             }
@@ -107,7 +109,8 @@ const teacherClasses = {
 }
 
 const setSelectOptions = (role) => {
-    let selectedArray = role == 'student' ? studentsClasses : teacherClasses;
+    document.getElementById('role').value = role;
+    let selectedArray = role == 'Student' ? studentsClasses : teacherClasses;
     var classes = document.getElementById('classes');
     classes.options.length = 0;
     for(index in selectedArray) {
@@ -122,4 +125,6 @@ const start = () => {
     setSelectOptions('student');
 }
 
-document.addEventListener('DOMContentLoaded', start, false)
+$(document).ready(() => {
+    start();
+})
