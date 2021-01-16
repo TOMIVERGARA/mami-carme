@@ -17,4 +17,5 @@ module.exports = (app) => {
     app.post(api.endpoints.add_birthday_service, addBirthdayServices.addBirthday);
     app.get(api.endpoints.get_birthday_by_date, getBirthdayServices.getBirthdayByDate);
     app.delete(api.endpoints.remove_single_by_id, removeBirthdayServices.removeSingleByName);
+    app.delete(api.endpoints.remove_document_by_id, removeBirthdayServices.removeDocumentById);
 }
