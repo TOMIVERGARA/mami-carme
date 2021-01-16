@@ -32,6 +32,13 @@ module.exports.removeSingleByName = async (req, res) => {
 }
 
 //EXPRESS ROUTE
-module.exports.removeDocumentById = (req, res) => {
+module.exports.removeDocumentById = async (req, res) => {
+     const docuemntId = req.body.docuemntId;
 
+     try {
+         await Birthday.findByIdAndDelete(docuemntId);
+         return res.status(200).send({ status: 'success', data: { message: 'Deleted a birthday document.'} });
+     } catch (error) {
+         return res.status(400).send({ status: 'error', error: { code: '103', message: 'There was an error while getting the document.', target: 'db', error: error } });
+     }
 }
