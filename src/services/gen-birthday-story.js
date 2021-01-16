@@ -4,9 +4,10 @@ const fs = require('fs');
 const { createCanvas, loadImage, registerFont } = require('canvas');
 //Imports Tools
 const { writeText } = require('./tools/write-text.canvas');
-
 //Imports today birthdays
 const { getTodayBirthdayArray } = require('./get-birthday')
+//Imports Intl Dates
+const Intl = require('intl');
 
 const getRandomStyles = () => {
     //Generates array with available backgrounds
@@ -67,6 +68,13 @@ module.exports.getDynamicStoryImg = async () => {
     //Gets todays birthdays
     const people = await getTodayBirthdayArray()
 
+    //Gets Date
+    const date = new Date();
+    const today = new Intl.DateTimeFormat(process.env.TIMEZONE, {
+      day: '2-digit',
+      month: '2-digit'
+    }).format(date);
+
     //Registers the font
     registerFont(__dirname + `/../resources/fonts/${randomFontName}`, { family: 'random-font' });
 
@@ -79,7 +87,7 @@ module.exports.getDynamicStoryImg = async () => {
 
     // const header = 'Cumple hoy'
     writeText('Cumple hoy', 70, '#fff', [0, 250], ctx, canvas, { background: '#000000' });
-    writeText('11/10', 50, '#fff', [0, 360], ctx, canvas, { calculatedColor: true });
+    writeText(today, 50, '#fff', [0, 360], ctx, canvas, { calculatedColor: true });
 
     generateList(ctx, canvas, 550, people);
 
