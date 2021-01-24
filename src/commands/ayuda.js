@@ -79,11 +79,16 @@ module.exports = {
                 }
             },
             '🧑‍💻': {
-
+                embed: {
+                    color: 15087942,
+                    fields: [
+                        {
+                            name: 'En obra...',
+                            value: `> Esta seccion se encuentra en construccion y todavia no esta lista para su uso.`
+                        }
+                    ]
+                }
             },
-            '🗂': {
-
-            }
         }
 
 
@@ -95,8 +100,7 @@ module.exports = {
               .setDescription('Aca tenes todo lo que puedo hacer por vos bb. Selecciona la reaccion segun corresponda.')
               .addFields(
                   { name: "🎂 ***Cumpleaños***", value: "➥ Lista de los cumpleañeros del dia." },
-                  { name: "🧑‍💻 ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." },
-                  { name: "🗂 ***Monday.com***", value: "➥ Añadir tareas, cosultar pendientes." },
+                  { name: "🧑‍💻 ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." }
               )
               .setTimestamp()
               .setFooter(`${user.username}`, `${user.displayAvatarURL({ dynamic: true })}`);
