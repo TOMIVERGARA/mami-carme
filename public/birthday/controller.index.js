@@ -73,7 +73,7 @@ class BirthdayPanel{
         $.ajax({
             type:"GET",
             async: true,
-            url:"../../api/v1/birthday/get_birthday_by_date",
+            url:"/api/v1/birthday/get_birthday_by_date",
             data:{
                 dateStr: this.date
             },
@@ -135,7 +135,7 @@ const deleteSingleByName = (e) => {
     if (window.confirm("🧐 Estas seguro que lo queres eliminar?")) {
         $.ajax({
             type:"DELETE",
-            url:"../../api/v1/birthday/remove_single_by_id",
+            url:"/api/v1/birthday/remove_single_by_id",
             data:{
                 documentId: e.currentTarget.dataset.documentId,
                 personName: e.currentTarget.dataset.name
@@ -158,7 +158,7 @@ const deleteDocumentById = (e) => {
        console.log(e.currentTarget.dataset.id,)
         $.ajax({
             type:"DELETE",
-            url:"../../api/v1/birthday/remove_document_by_id",
+            url:"/api/v1/birthday/remove_document_by_id",
             data:{
                 documentId: e.currentTarget.dataset.id,
             },

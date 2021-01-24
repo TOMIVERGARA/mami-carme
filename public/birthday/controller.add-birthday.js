@@ -63,7 +63,7 @@ const submitForm = (e) => {
     if(validation){
         $.ajax({
             type:"POST",
-            url:"../../api/v1/birthday/add_birthday",
+            url:"/api/v1/birthday/add_birthday",
             data:{
                 name: validation.name,
                 role: validation.role,
