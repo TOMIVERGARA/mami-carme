@@ -17,6 +17,11 @@ module.exports.addBirthday = (req, res) => {
 }
 
 //EXPRESS ROUTE
+module.exports.settings = (req, res) => {
+    res.sendFile('public/settings/index.html', { root: '.' });
+}
+
+//EXPRESS ROUTE
 module.exports.getTodayStory = async (req, res) => {
     const sendFile = () => res.sendFile(`src/resources/img/stories/today/${new Date().getDay()}.png`, { root: '.' });
 
