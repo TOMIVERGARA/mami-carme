@@ -8,11 +8,17 @@
             "index": "/",
             "birthday": "/birthday",
             "add_birthday": "/birthday/add_birthday",
+            "settings": "/settings",
             "add_birthday_service": "/api/v1/birthday/add_birthday",
             "get_today_birthday_story": "/api/v1/birthday/get_today_story",
             "get_birthday_by_date": "/api/v1/birthday/get_birthday_by_date",
             "remove_single_by_id": "/api/v1/birthday/remove_single_by_id",
-            "remove_document_by_id": "/api/v1/birthday/remove_document_by_id"
+            "remove_document_by_id": "/api/v1/birthday/remove_document_by_id",
+            "get_available_backgrounds": "/api/v1/settings/get_available_backgrounds",
+            "get_available_fonts": "/api/v1/settings/get_available_fonts",
+            "remove_font_by_name": "/api/v1/settings/remove_font_by_name",
+            "remove_background_by_name": "/api/v1/settings/remove_background_by_name",
+            "upload_resources": "/api/v1/settings/upload_resources"
         }
     }
 }
