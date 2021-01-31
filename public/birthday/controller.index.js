@@ -53,9 +53,13 @@ const panelBlockTemplate = (people, documentId) => html.node`
            <div>
               <span>${person.name} - <span class="tag is-primary is-light is-rounded mr-2">${person.class}</span></span>
            </div>
-           <div>
-             <button class="button is-danger is-small is-light" data-documentId=${documentId} data-name=${person.name} onclick=${deleteSingleByName}><i class="fas fa-trash" aria-hidden="true"></i></button>
-           </div>
+           ${people.length > 1 ?
+               html.node`
+               <div>
+                 <button class="button is-danger is-small is-light" data-document=${documentId} data-name=${person.name} onclick=${deleteSingleByName}><i class="fas fa-trash" aria-hidden="true"></i></button>
+               </div>
+               ` : ''
+           }
          </a>
       `)}
     </div>
@@ -74,6 +78,9 @@ class BirthdayPanel{
             type:"GET",
             async: true,
             url:"/api/v1/birthday/get_birthday_by_date",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+            },
             data:{
                 dateStr: this.date
             },
@@ -97,7 +104,7 @@ class BirthdayPanel{
         deleteAllButton.style.display = "block";
         if(!this._id){
             toggleDisplay('deleteAll');
-            document.getElementById('blocks').innerHTML = '<div class="tile is-5 mx-auto pt-3"><span class="tag is-primary is-light is-rounded mx-auto">No hay cumpleaños!</span></div>';
+            document.getElementById('blocks').innerHTML = '<div class="tile is-5 fullwidth flex justify-center pt-3"><span class="tag is-primary is-light is-rounded">No hay cumpleaños!</span></div>';
         }else{
             deleteAllButton.setAttribute('data-id', this._id);
             document.getElementById('blocks').innerHTML = null;
@@ -132,12 +139,16 @@ const loadCalendar = () => {
 }
 
 const deleteSingleByName = (e) => {
+    console.log(e.currentTarget.dataset.document)
     if (window.confirm("🧐 Estas seguro que lo queres eliminar?")) {
         $.ajax({
             type:"DELETE",
             url:"/api/v1/birthday/remove_single_by_id",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+            },
             data:{
-                documentId: e.currentTarget.dataset.documentId,
+                documentId: e.currentTarget.dataset.document,
                 personName: e.currentTarget.dataset.name
             },
             dataType: 'json',
@@ -146,7 +157,7 @@ const deleteSingleByName = (e) => {
                 PanelHandler.getBirthday(true)
             },
             error: error => {
-                Toast.show('Hubo un error al eliminar el cumpleaños 😭');
+                Toast.show('Hubo un error al eliminar 😭');
                 console.log(error);
             }
         });
@@ -155,10 +166,12 @@ const deleteSingleByName = (e) => {
 
 const deleteDocumentById = (e) => {
     if (window.confirm("🧐 Estas seguro de que queres eliminar todos los cumpleaños de esta fecha?")) {
-       console.log(e.currentTarget.dataset.id,)
         $.ajax({
             type:"DELETE",
             url:"/api/v1/birthday/remove_document_by_id",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+            },
             data:{
                 documentId: e.currentTarget.dataset.id,
             },
