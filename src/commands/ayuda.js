@@ -1,8 +1,8 @@
 //Imports Discord.js
 const Discord = require('discord.js');
 const { ReactionCollector } = require('discord.js-collector');
-const { result } = require('lodash');
 const { getTodayBirthdayFormatted } = require('../services/get-birthday');
+const { generateOtp } = require('../auth/otp');
 const { api, user_settings } = require('../../config.json');
 
 module.exports = {
@@ -89,6 +89,16 @@ module.exports = {
                     ]
                 }
             },
+            '🔑': {
+                embed: {
+                    fields: [
+                        {
+                            name: 'Tu OTP es:',
+                            value: `> **${generateOtp()}** | [Iniciar Sesion](${process.env.DEPLOYMENT_URL}/login?otp=${generateOtp()})`
+                        },
+                    ]
+                }
+            }
         }
 
 
@@ -100,7 +110,8 @@ module.exports = {
               .setDescription('Aca tenes todo lo que puedo hacer por vos bb. Selecciona la reaccion segun corresponda.')
               .addFields(
                   { name: "🎂 ***Cumpleaños***", value: "➥ Lista de los cumpleañeros del dia." },
-                  { name: "🧑‍💻 ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." }
+                  { name: "🧑‍💻 ***Reuniones***", value: "➥ Crear eventos de Meet, organizar salas, etc." },
+                  { name: "🔑 ***OTP***", value: "➥ Obtene una clave unica para iniciar sesion." }
               )
               .setTimestamp()
               .setFooter(`${user.username}`, `${user.displayAvatarURL({ dynamic: true })}`);
@@ -110,7 +121,12 @@ module.exports = {
            .then(rc => {
                rc.collector.on('end', (collected, reason) => {
                    //If user setting deletes expired embed
-                   if(user_settings.delete_expired_embed) botMessage.delete();
+                   try {
+                      if(user_settings.delete_expired_embed){ botMessage.delete() };
+                      return;
+                   } catch (error) {
+                      return;
+                   }
                })
            })
 
