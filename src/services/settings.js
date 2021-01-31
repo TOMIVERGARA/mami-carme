@@ -2,6 +2,8 @@ const fs = require('fs-extra');
 const path = require("path");
 const multer = require("multer");
 
+const configFile = require('../../config.json')
+
 
 //Uploader
 var storage = multer.diskStorage({
@@ -63,4 +65,23 @@ module.exports.removeBackgroundByName = async (req, res) => {
     } catch (error) {
         return res.status(500).send({ status: 'error', error: { code: '105', message: 'There was an error deleting the background img', target: 'fs', error: error } });
     }
+}
+
+//EXPRESS ROUTE
+module.exports.toggleSetting = (req, res) => {
+    const setting = req.body.settingName;
+    if(configFile.user_settings.hasOwnProperty(setting)){
+       const previousUserSetting = configFile.user_settings[setting];
+       configFile.user_settings[setting] = !previousUserSetting;
+       fs.writeFile(__dirname + '/../../config.json', JSON.stringify(configFile, null, 2), error => {
+            if (error) return res.status(500).send({ status: 'error', error: { code: '109', message: 'There was an error toggling the setting', target: 'config', error: error } });
+            res.status(200).send({ status: 'success', data: { message: 'Toogled setting', setting: setting, value: configFile.user_settings[setting]} });
+       });
+    }else{
+        return res.status(400).send({ status: 'error', error: { code: '110', message: 'The specified setting doesnt exist.', target: 'config', setting: setting} });
+    }
+}
+
+module.exports.getSettings = (req, res) => {
+    res.status(200).send({ status: 'success', data: { message: 'Get settings', settings: configFile.user_settings} });
 }
