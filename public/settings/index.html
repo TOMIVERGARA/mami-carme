@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- AUTHENTICATION -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="../vendor/utils/auth.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- Font Awesome -->
@@ -15,6 +18,8 @@
     <!-- FilePond Css -->
     <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
     <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+    <!-- Animated Toggles -->
+    <link rel="stylesheet" href="../css/bulma/build/animated_toggles.css">
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="../img/favicon/apple-touch-icon.png">
@@ -103,9 +108,11 @@
                       </p>
                       <div class="tabs">
                         <ul>
-                          <li class="is-active"><a>Insta Stories</a></li>
+                          <li onclick="changeTab(event, 'tab1')" class="tablinks is-active"><a>Insta Stories</a></li>
+                          <li onclick="changeTab(event, 'tab2')" class="tablinks"><a>General</a></li>
                         </ul>
                       </div>
+                      <div id="tab1" class="tabcontent">
                       <div class="columns">
                           <div class="column is-6">
                               <h3 class="title is-6">Fondos</h3>
@@ -124,7 +131,33 @@
                       <div>
                         <h3 class="title is-4">Subir Recursos</h3>
                           <input type="file" class="my-pond" id="filepond" name="resource"/>
-                        </div>
+                      </div>
+                      </div>
+                      <div id="tab2" style="display: none;" class="tabcontent">
+                        <div class="columns">
+                             <div class="column is-6">
+                                 <h3 class="title is-6">Usuarios</h3>
+                                  <div class="field">
+                                    <label class="label">Eliminar Trigger Messages</label>
+                                    <div class="control">
+                                      <input id="delete_trigger_msg" data-name="delete_trigger_msg" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
+                                    </div>
+                                    <p class="help">Si esta activado, al responder, el bot elimina el mensaje que activo la respuesta del mismo para asi mantener el chat limpio.</p>
+                                  </div>
+                             </div>
+                             <div class="column is-6">
+                              <h3 class="title is-6">Comportamientos</h3>
+                                  <div class="field">
+                                    <label class="label">Eliminar Embeds Expirados</label>
+                                    <div class="control">
+                                      <input id="delete_expired_embed" data-name="delete_expired_embed" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
+                                    </div>
+                                    <p class="help">Si esta activado, el bot elimina los embeds con mas de 30 segundos de inactividad para mantener el chat limpio.</p>
+                                  </div>
+                             </div>
+                         </div>
+                       </div>
+                      </div>
                     </div>
                   </div>
                 </div>

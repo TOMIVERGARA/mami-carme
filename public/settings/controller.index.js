@@ -41,6 +41,27 @@ var isAdvancedUpload = function() {
   return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
 }();
 
+const changeTab = (evt, cityName) => {
+  // Declare all variables
+  let i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " is-active";
+}
+
 //Services
 const generateImageList = fileArray => html.node`
     <div class="img-list">
@@ -80,6 +101,9 @@ const getImageArray = () => {
         type:"GET",
         async: true,
         url:"/api/v1/settings/get_available_backgrounds",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+        },
         success: result => {
             render(document.querySelector('#controller'), generateImageList(result.data.files))
         },
@@ -95,6 +119,9 @@ const getFontArray = () => {
         type:"GET",
         async: true,
         url:"/api/v1/settings/get_available_fonts",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+        },
         success: result => {
             result.data.files.map(font => {
                 let newFont = null;
@@ -120,6 +147,9 @@ const removeAsset = (e) => {
         $.ajax({
             type:"DELETE",
             url: type == "font" ? "/api/v1/settings/remove_font_by_name" : "/api/v1/settings/remove_background_by_name",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+            },
             data:{
                 filename: e.currentTarget.dataset.filename,
             },
@@ -136,9 +166,52 @@ const removeAsset = (e) => {
     }
 }
 
+const getSettings = () => {
+    $.ajax({
+        type:"GET",
+        async: true,
+        url:"/api/v1/settings/get_settings",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+        },
+        success: response => {
+            const settings = response.data.settings
+            for (const property in settings) {
+                document.getElementById(property).checked = settings[property];
+            }
+        },
+        error: error => {
+            Toast.show('Hubo un error al obetener los ajustes 😭');
+            console.log(error);
+        }
+    });
+}
+
+const toggleSetting = (e) => {
+    $.ajax({
+        type:"PUT",
+        url: "/api/v1/settings/toggle_setting",
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+        },
+        data:{
+            settingName: e.currentTarget.dataset.name,
+        },
+        dataType: 'json',
+        success: response => {
+            console.log(response)
+        },
+        error: error => {
+            Toast.show('Hubo un error al actualizar el ajuste 😭');
+            console.log(error);
+        }
+    });
+}
+
 $(document).ready(() => {
     getImageArray();
     getFontArray();
+    getSettings();
 
     // Turn input element into a pond
     const input = document.querySelector('#filepond');
