@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- AUTHENTICATION -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <script src="./vendor/utils/auth.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- Font Awesome -->
@@ -93,7 +96,7 @@
                         Cumpleañeros del dia <b><span id="date" class="tag is-primary is-light"></span></b>
                       </p>
                       <figure class="image">
-                        <img src="/api/v1/birthday/get_today_story">
+                        <img src="/api/v1/birthday/get_today_story" >
                       </figure>
                     </div>
                     <footer class="card-footer">

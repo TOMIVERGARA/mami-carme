@@ -64,6 +64,9 @@ const submitForm = (e) => {
         $.ajax({
             type:"POST",
             url:"/api/v1/birthday/add_birthday",
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', `Bearer ${Cookies.get('login_token')}`);
+            },
             data:{
                 name: validation.name,
                 role: validation.role,
