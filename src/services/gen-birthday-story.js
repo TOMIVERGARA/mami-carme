@@ -86,7 +86,8 @@ module.exports.getDynamicStoryImg = async () => {
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height); //Sets the image as background
 
     // const header = 'Cumple hoy'
-    writeText('Cumple hoy', 70, '#fff', [0, 250], ctx, canvas, { background: '#000000' });
+    const emoji = await loadImage(__dirname +`/../resources/img/emoji/sparkles_2728.png`);
+    writeText('Cumple hoy', 70, '#fff', [0, 250], ctx, canvas, { background: '#000000', ornaments: emoji });
     writeText(today, 50, '#fff', [0, 360], ctx, canvas, { calculatedColor: true });
 
     generateList(ctx, canvas, 550, people);

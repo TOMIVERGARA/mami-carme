@@ -13,6 +13,11 @@ module.exports.writeText = (text, size, color, position, ctx, canvas, options) =
             ctx.fillStyle = options.background;
             const textWidth = ctx.measureText(text).width;
             ctx.fillRect(canvas.width / 2 - textWidth / 2 - 20, y - 12, textWidth + 40, 90);
+            if(options.ornaments){
+                const ornament = options.ornaments;
+                ctx.drawImage(ornament, canvas.width / 2 + textWidth / 2 + 30, y, 70, 70);
+                ctx.drawImage(ornament, canvas.width / 2 - textWidth / 2 - 100, y, 70, 70);
+            }
         }
         if(options.calculatedColor){
             ctx.font =  `${size}px random-font`;
