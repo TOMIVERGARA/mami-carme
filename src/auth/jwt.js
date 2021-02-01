@@ -15,7 +15,6 @@ module.exports.validateJwt = async token => {
     const verification = jwt.verify(token, process.env.JWT_SECRET);
     return verification;
   } catch (error) {
-    console.log(error)
     return false;
   }
 }

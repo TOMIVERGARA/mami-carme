@@ -7,6 +7,9 @@ const path = require('path');
 //Routers folder
 const routes = require('../api/routes/routes');
 
+//Rate Limiter
+const rateLimiter = require('../api/middlewares/rate-limiter');
+
 //Defines Listening port
 const port = process.env.PORT || 3000;
 
@@ -18,6 +21,7 @@ module.exports.startHttpServer = () => {
        app.use(bodyParser.urlencoded({ extended: true }));
        app.use(bodyParser.json());
        app.use(cors());
+       app.use("/api/", rateLimiter);
        app.use(express.static(path.join(`${__dirname}/../../`, 'public')));
        app.use('/api/v1/resources', express.static(path.join(`${__dirname}/../`, 'resources')));
 
