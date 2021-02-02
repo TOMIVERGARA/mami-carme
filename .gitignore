@@ -12,6 +12,8 @@ lerna-debug.log*
 *.notes
 .sass-cache
 .DS_Store
+.deployment
+.vscode
 bulma-0.9.1
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
