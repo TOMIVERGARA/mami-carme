@@ -51,9 +51,6 @@ module.exports.startBot = () => {
             console.error(error);
             message.reply('Perdone mijo, tuve un problema para ejecutar ese comando!');
         }
-        
-        //If user setting deletes trigger msg
-        if(user_settings.delete_trigger_msg) message.delete();
     });
 
     //Logs In to Discord bot account and catches errors

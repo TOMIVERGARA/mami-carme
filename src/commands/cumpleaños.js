@@ -1,12 +1,12 @@
 //Imports Discord.js
 const Discord = require('discord.js');
 const { ReactionCollector } = require('discord.js-collector');
-const { generateOtp } = require('../auth/otp');
-const { user_settings } = require('../../config.json');
+const { getTodayBirthdayFormatted } = require('../services/get-birthday');
+const { api, user_settings } = require('../../config.json');
 
 module.exports = {
-	name: 'ayuda',
-	description: 'Main Menu',
+	name: 'cumpleaños',
+	description: 'Birthday Module',
 	async execute(message, args) {
         //Defines Message Author
         const user = message.author
@@ -28,28 +28,27 @@ module.exports = {
 
         //Defines Menu Pages(Structure)
         const pages = {
-            '🙋': {
+            '1️⃣': {
                 embed: {
-                    color: 15087942,
+                    title: 'Añadir un cumpleaños',
                     fields: [
                         {
-                            name: 'En obra...',
-                            value: `> Esta seccion se encuentra en construccion y todavia no esta lista para su uso.`
+                            name: 'Podes añadir un nuevo cumpleañero desde la web:',
+                            value: `> [Añadir Cumpleaños](${process.env.DEPLOYMENT_URL}${api.endpoints.add_birthday})`
                         }
                     ]
                 }
             },
-            '🔑': {
+            '2️⃣': {
                 embed: {
-                    fields: [
-                        {
-                            name: 'Tu OTP es:',
-                            value: `> **${generateOtp()}** | [Iniciar Sesion](${process.env.DEPLOYMENT_URL}/login?otp=${generateOtp()})`
-                        },
-                    ]
+                    color: 15087942,
+                    image: {
+                        url: `${process.env.ENV == "DEVELOPMENT" ? 'https://i.imgur.com/VdTFube.png': `${process.env.DEPLOYMENT_URL}/${api.endpoints.get_today_birthday_story}`}`
+                     }
                 }
             }
         }
+
 
 
         //Seed Embed
@@ -59,8 +58,10 @@ module.exports = {
               .setAuthor('Carmela aka. Mami Carme', 'https://cdn-virtual.miescueladigital.com.ar/prod/picture/profile-thumb/becac416-5d7c-48b3-b753-580a2290369c', 'https://instagram.com/carmeintili?igshid=s3bczf05fdtt')
               .setDescription('Aca tenes todo lo que puedo hacer por vos bb. Selecciona la reaccion segun corresponda.')
               .addFields(
-                  { name: "🙋 ***FAQ***", value: "➥ Crear eventos de Meet, organizar salas, etc." },
-                  { name: "🔑 ***OTP***", value: "➥ Obtene una clave unica para iniciar sesion." }
+                  { name: "Los cumpleañeros del dia son:", value: await getTodayBirthdayFormatted() },
+                  { name: "\u200b", value: "🔍 *****Opciones Disponibles:*****" },
+                  { name: "1️⃣ Añadir un Cumpleañero", value: "➥ Obtene una clave unica para iniciar sesion." },
+                  { name: "2️⃣ Generar Story", value: "➥ Genera la imagen para story con los nombres de los cumpleañeros." }
               )
               .setTimestamp()
               .setFooter(`${user.username}`, `${user.displayAvatarURL({ dynamic: true })}`);
@@ -75,5 +76,6 @@ module.exports = {
                    if(user_settings.delete_trigger_msg) message.delete();
                })
            })
-	}
+
+	},
 };
