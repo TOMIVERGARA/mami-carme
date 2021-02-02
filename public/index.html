@@ -57,12 +57,6 @@
                 <a href="/birthday" class="navbar-item">
                   Cumpleaños
                 </a>
-                <a class="navbar-item">
-                  Tareas
-                </a>
-                <a class="navbar-item">
-                  Monday.com
-                </a>
                 <hr class="navbar-divider">
                 <a class="navbar-item">
                   Reportar un problema
@@ -73,12 +67,12 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light">
-                  Log in
-                </a>
+                <button onclick="Cookies.remove('login_token'); window.location.href = '/login'" class="button is-light">
+                  <span class="icon">
+                    <i class="fas fa-sign-out-alt"></i>
+                  </span>
+                  <span>Log out</span>
+                </button>
               </div>
             </div>
           </div>
@@ -89,6 +83,32 @@
         <section class="section">
             <div class="container">
                 <div class="columns">
+                  <div class="column is-8">
+                    <div class="card welcome-card">
+                        <div class="card-content">
+                          <p class="title">
+                            Hola
+                          </p>
+                          <p class="subtitle">
+                            Selecciona una opcion
+                          </p>
+                          <div>
+                            <a href="/birthday" class="button mb-2 is-large rounded-corner">
+                              <span class="icon is-medium">
+                                <i class="fas fa-birthday-cake"></i>
+                              </span>
+                              <span>Cumpleaños</span>
+                            </a>
+                            <a href="/settings" class="button mb-2 is-large rounded-corner">
+                              <span class="icon is-medium">
+                                <i class="fas fa-sliders-h"></i>
+                              </span>
+                              <span>Ajustes</span>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
                   <div class="column is-4">
                   <div class="card">
                     <div class="card-content">
@@ -103,19 +123,6 @@
                       <a class="card-footer-item" href="/api/v1/birthday/get_today_story" download>Descargar</a>
                     </footer>
                   </div>
-                  </div>
-                  <div class="column is-8">
-                    <div class="card">
-                        <div class="card-content">
-                          <p class="title">
-                            Home
-                          </p>
-                        </div>
-                        <footer class="card-footer">
-                          <a class="card-footer-item">Cancelar</a>
-                          <a class="card-footer-item" onclick="submitForm(event)" >Añadir</a>
-                        </footer>
-                      </div>
                   </div>
                 </div>
             </div>

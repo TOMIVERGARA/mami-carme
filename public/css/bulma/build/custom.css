@@ -143,3 +143,20 @@ body {
 .login .card {
   overflow: visible !important;
 }
+
+.welcome-card {
+  background: url('../../../img/pattern1.png') no-repeat;
+  background-color: #ffffff;
+  background-size: 20%;
+  background-position: 100% -50%;
+}
+
+@media only screen and (max-device-width: 600px){
+  .welcome-card{
+    background-image: none;
+  }
+}
+
+.rounded-corner {
+  border-radius: 20px;
+}
