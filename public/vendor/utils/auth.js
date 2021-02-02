@@ -1,6 +1,7 @@
 const token = Cookies.get('login_token');
 if(!token){
-  window.location.href = "/login";
+  const currentLocation = window.location.href;
+  window.location.href = `/login?redirect=${currentLocation}`;
 }else{
   fetch('/api/v1/auth/validate_jwt', {
     method: 'POST',
@@ -11,7 +12,8 @@ if(!token){
   })
   .then(response => {
     if(!response.ok){
-      window.location.href = "/login";
+      const currentLocation = window.location.href;
+      window.location.href = `/login?redirect=${currentLocation}`;
     }
   })
 }

@@ -59,6 +59,9 @@ particlesJS.load("particles-js", jsonUri, function () {
   console.log("callback - particles.js config loaded");
 });
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
 let Toast = new Toasted({
   position : 'top-right',
   duration: 6000,
@@ -88,8 +91,11 @@ const login = otp => {
         var minutes = 30;
         date.setTime(date.getTime() + (minutes * 60 * 1000));
         Cookies.set("login_token", jwt, { expires: date });
-
-        window.location.href = "/";
+        if(urlParams.get('redirect')){
+          window.location.href = urlParams.get('redirect');
+        }else{
+          window.location.href = "/";
+        }
     },
     error: error => {
         document.querySelector('#loader').style.display = "none"
@@ -99,16 +105,10 @@ const login = otp => {
 });
 }
 
-const processUrlParams = () => {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+$(document).ready(() => {
   if(urlParams.get('otp')){
     login(urlParams.get('otp'));
   }
-}
-
-$(document).ready(() => {
-  processUrlParams();
   var pinlogin = $("#pinwrapper").pinlogin({
     fields: 6,
     hideinput: false,
