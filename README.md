@@ -30,7 +30,6 @@ npm start
 👉 This project makes use of the file system to make the commands more customizable. If you want to use those features please make sure to deploy the app on a service that provides a persistent file system. Solutions like Heroku will not work as intended due to Heroku's ephemeral file system. Be careful since every new resource that you upload throw the web interface will be lost after a while if not using a persistent fs.
 
 ## Todos
- - **Solve error produced when deleting the expired discord embed.** I don't know why, but when the embed is deleted discord.js throws an error.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
