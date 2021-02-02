@@ -121,12 +121,7 @@ module.exports = {
            .then(rc => {
                rc.collector.on('end', (collected, reason) => {
                    //If user setting deletes expired embed
-                   try {
-                      if(user_settings.delete_expired_embed){ botMessage.delete() };
-                      return;
-                   } catch (error) {
-                      return;
-                   }
+                   if(user_settings.delete_expired_embed){ botMessage.delete().catch(console.log('➥ ⚠ Deleted Embed')) };
                })
            })
 
