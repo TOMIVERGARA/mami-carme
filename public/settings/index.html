@@ -130,24 +130,31 @@
                       <div id="tab2" style="display: none;" class="tabcontent">
                         <div class="columns">
                              <div class="column is-6">
-                                 <h3 class="title is-6">Usuarios</h3>
-                                  <div class="field">
-                                    <label class="label">Eliminar Trigger Messages</label>
-                                    <div class="control">
-                                      <input id="delete_trigger_msg" data-name="delete_trigger_msg" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
-                                    </div>
-                                    <p class="help">Si esta activado, al responder, el bot elimina el mensaje que activo la respuesta del mismo para asi mantener el chat limpio.</p>
-                                  </div>
+                                <h3 class="title is-6">Usuarios</h3>
+                                 <div class="field">
+                                   <label class="label">Eliminar Trigger Messages</label>
+                                   <div class="control">
+                                     <input id="delete_trigger_msg" data-name="delete_trigger_msg" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
+                                   </div>
+                                   <p class="help">Si esta activado, al responder, el bot elimina el mensaje que activo la respuesta del mismo para asi mantener el chat limpio.</p>
+                                 </div>
                              </div>
                              <div class="column is-6">
                               <h3 class="title is-6">Comportamientos</h3>
-                                  <div class="field">
-                                    <label class="label">Eliminar Embeds Expirados</label>
-                                    <div class="control">
-                                      <input id="delete_expired_embed" data-name="delete_expired_embed" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
-                                    </div>
-                                    <p class="help">Si esta activado, el bot elimina los embeds con mas de 30 segundos de inactividad para mantener el chat limpio.</p>
+                                <div class="field">
+                                  <label class="label">Eliminar Embeds Expirados</label>
+                                  <div class="control">
+                                    <input id="delete_expired_embed" data-name="delete_expired_embed" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
                                   </div>
+                                  <p class="help">Si esta activado, el bot elimina los embeds con mas de 30 segundos de inactividad para mantener el chat limpio.</p>
+                                </div>
+                                <div class="field">
+                                  <label class="label">Canales automaticos con indicador</label>
+                                  <div class="control">
+                                    <input id="automatic_channels_have_indicator" data-name="automatic_channels_have_indicator" class="toggle" onchange="toggleSetting(event)" type="checkbox" />
+                                  </div>
+                                  <p class="help">Si esta activado, los canales automaticos creados por el bot contienen un <code>👾</code> delante del nombre.</p>
+                                </div>
                              </div>
                          </div>
                        </div>
