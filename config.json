@@ -1,7 +1,9 @@
 {
   "user_settings": {
     "delete_trigger_msg": true,
-    "delete_expired_embed": true
+    "delete_expired_embed": true,
+    "automatic_channels_have_indicator": true,
+    "voice_channels_category_name": "Voice Channels"
   },
   "api": {
     "endpoints": {
