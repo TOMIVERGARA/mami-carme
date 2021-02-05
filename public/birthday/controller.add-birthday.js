@@ -121,13 +121,9 @@ const setSelectOptions = (role) => {
     }
 }
 
-const start = () => {
+$(document).ready(() => {
     //Sets Input Date to today:
     document.querySelector('#birthday').valueAsDate = new Date();
     //Sets Select to default options
-    setSelectOptions('student');
-}
-
-$(document).ready(() => {
-    start();
+    setSelectOptions('Student');
 })
