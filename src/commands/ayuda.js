@@ -69,10 +69,12 @@ module.exports = {
         ReactionCollector.menu({ botMessage, user: message.author, pages })
            .then(rc => {
                rc.collector.on('end', (collected, reason) => {
-                   //If user setting deletes expired embed
-                   if(user_settings.delete_expired_embed){ botMessage.delete() };
-                   //If user setting deletes trigger msg
-                   if(user_settings.delete_trigger_msg) message.delete();
+                   setTimeout(() => {
+                       //If user setting deletes expired embed
+                       if(user_settings.delete_expired_embed){ botMessage.delete() };
+                       //If user setting deletes trigger msg
+                       if(user_settings.delete_trigger_msg){ message.delete() };
+                   }, 1000)
                })
            })
 	}

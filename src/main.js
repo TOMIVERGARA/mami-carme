@@ -11,6 +11,11 @@ const { startHttpServer } = require('./loaders/server')
 
 try {
    console.log('***STARTING SERVER***')
+   if(process.env.ENV == 'DEVELOPMENT'){
+      process.on('unhandledRejection', error => {
+         console.error('Unhandled promise rejection:', error);
+      });
+   }
    //Starts DB Connection
    startConnection();
    //Starts Discord Bot Controller
