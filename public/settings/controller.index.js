@@ -36,11 +36,6 @@ let PersistentToast = new Toasted({
     }
 });
 
-var isAdvancedUpload = function() {
-  var div = document.createElement('div');
-  return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
-}();
-
 const changeTab = (evt, cityName) => {
   // Declare all variables
   let i, tabcontent, tablinks;
@@ -224,14 +219,21 @@ $(document).ready(() => {
         imageValidateSizeMinHeight: 1920,
         allowMultiple: true,
         server: {
-            process: '/api/v1/settings/upload_resources',
+            process: {
+                url: '/api/v1/settings/upload_resources',
+                headers: {
+                    'Authorization': `Bearer ${Cookies.get('login_token')}`
+                }
+            },
             revert: null
         }
     });
 
     document.querySelector('.filepond--root').addEventListener('FilePond:processfile', e => {
         console.log('File added', e.detail);
-        PersistentToast.show('Hay cambios sin guardar 💾')
+        if(!e.detail.error){
+            PersistentToast.show('Hay cambios sin guardar 💾')
+        }
     });
 
     var columns = 3;
