@@ -6,7 +6,8 @@ client.commands = new Discord.Collection();
 //Imports FileSystem to read config file
 const fs = require('fs');
 
-const { user_settings } = require('../../config.json')
+const { user_settings } = require('../../config.json');
+const { deleteEmptyChannelAfterDelay } = require('../services/channels/voice-channels');
 
 module.exports.startBot = () => {
     //Generates array with available commands
@@ -52,6 +53,10 @@ module.exports.startBot = () => {
             message.reply('Perdone mijo, tuve un problema para ejecutar ese comando!');
         }
     });
+
+    client.on('voiceStateUpdate', oldState => {
+        deleteEmptyChannelAfterDelay(oldState.channel)
+    })
 
     //Logs In to Discord bot account and catches errors
     client.login(process.env.DISCORD_BOT_TOKEN)
