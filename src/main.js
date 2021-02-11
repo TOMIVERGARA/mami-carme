@@ -23,6 +23,7 @@ try {
    //Starts the Http Server
    startHttpServer();
 } catch (error) {
+   console.error(error);
    console.error('There was a fatal error while starting the server. Exit Code 5')
    return process.exit(5)
 }

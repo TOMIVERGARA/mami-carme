@@ -1,7 +1,6 @@
 //Imports Express, body-parser and cors
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const path = require('path');
 
 //Routers folder
@@ -20,7 +19,6 @@ module.exports.startHttpServer = () => {
        //Starts required services
        app.use(bodyParser.urlencoded({ extended: true }));
        app.use(bodyParser.json());
-       app.use(cors());
        app.use("/api/", rateLimiter);
        app.use(express.static(path.join(`${__dirname}/../../`, 'public')));
        app.use('/api/v1/resources', express.static(path.join(`${__dirname}/../`, 'resources')));
