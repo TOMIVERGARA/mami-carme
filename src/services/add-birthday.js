@@ -1,11 +1,13 @@
 //Imports Model
 const { Birthday } = require('../models/Birthday')
+//Tools
+const { toTitleCase } = require('./tools/to-title-case');
 //Imports Intl Dates
 const Intl = require('intl');
 
 class birthdayHandler {
     constructor(name, role, classes, date){
-        this.name = name;
+        this.name = toTitleCase(name);
         this.role = role;
         this.classes = classes;
         this.date = date;
