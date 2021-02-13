@@ -5,6 +5,8 @@ module.exports = (app) => {
     const addBirthdayServices = require('../../services/add-birthday');
     const getBirthdayServices = require('../../services/get-birthday');
     const removeBirthdayServices = require('../../services/remove-birthday');
+    const addClientServices = require('../../services/clients/add-client');
+    const getClientServices = require('../../services/clients/get-clients');
     const settingServices = require('../../services/settings');
     const authServices = require('../../auth/login');
 
@@ -19,12 +21,16 @@ module.exports = (app) => {
     app.get(api.endpoints.settings, fileSystem.settings);
     app.get(api.endpoints.login, fileSystem.login);
 
-    //Services
+    //Services - Birthday
     app.post(api.endpoints.add_birthday_service, auth, addBirthdayServices.addBirthday);
     app.post(api.endpoints.add_birthday_service, auth, addBirthdayServices.addBirthday);
     app.get(api.endpoints.get_birthday_by_date, auth, getBirthdayServices.getBirthdayByDate);
     app.delete(api.endpoints.remove_single_by_id, auth, removeBirthdayServices.removeSingleByName);
     app.delete(api.endpoints.remove_document_by_id, auth, removeBirthdayServices.removeDocumentById);
+
+    //Services - Clients
+    app.post(api.endpoints.add_client_service, auth, addClientServices.addClient);
+    app.get(api.endpoints.export_clients, getClientServices.exportClients);
 
     //Setings
     app.get(api.endpoints.get_available_backgrounds, auth, settingServices.getAvailableBackgrounds);
