@@ -7,11 +7,14 @@ module.exports = (app) => {
     const removeBirthdayServices = require('../../services/remove-birthday');
     const addClientServices = require('../../services/clients/add-client');
     const getClientServices = require('../../services/clients/get-clients');
+    const deleteClientServices = require('../../services/clients/delete-clients');
     const settingServices = require('../../services/settings');
     const authServices = require('../../auth/login');
+    const apiKeyServices = require('../../auth/apikeys');
 
     //Authentication
     const auth = require('../middlewares/auth');
+    const apikeysAuth = require('../middlewares/apikeys-auth');
 
     //File Server
     app.get(api.endpoints.index, fileSystem.index);
@@ -20,6 +23,7 @@ module.exports = (app) => {
     app.get(api.endpoints.get_today_birthday_story, fileSystem.getTodayStory);
     app.get(api.endpoints.settings, fileSystem.settings);
     app.get(api.endpoints.login, fileSystem.login);
+    app.get(api.endpoints.clients, fileSystem.clients);
 
     //Services - Birthday
     app.post(api.endpoints.add_birthday_service, auth, addBirthdayServices.addBirthday);
@@ -29,8 +33,11 @@ module.exports = (app) => {
     app.delete(api.endpoints.remove_document_by_id, auth, removeBirthdayServices.removeDocumentById);
 
     //Services - Clients
-    app.post(api.endpoints.add_client_service, auth, addClientServices.addClient);
-    app.get(api.endpoints.export_clients, getClientServices.exportClients);
+    app.post(api.endpoints.add_client_service, apikeysAuth, addClientServices.addClient);
+    app.get(api.endpoints.export_clients, auth, getClientServices.exportClients);
+    app.get(api.endpoints.clients_report, auth, getClientServices.clientsReport);
+    app.get(api.endpoints.get_clients, auth, getClientServices.getClients);
+    app.delete(api.endpoints.delete_clients, auth, deleteClientServices.deleteClientByEmail);
 
     //Setings
     app.get(api.endpoints.get_available_backgrounds, auth, settingServices.getAvailableBackgrounds);
@@ -51,4 +58,8 @@ module.exports = (app) => {
     //Auth
     app.post(api.endpoints.login_with_otp, authServices.login);
     app.post(api.endpoints.validate_jwt, authServices.validateJwt);
+    app.post(api.endpoints.create_api_key, auth, apiKeyServices.createApiKey);
+    app.get(api.endpoints.get_api_keys, auth, apiKeyServices.getApiKeys);
+    app.delete(api.endpoints.delete_api_key, auth, apiKeyServices.deleteApiKey);
+    app.put(api.endpoints.pause_api_key, auth, apiKeyServices.pauseApiKey);
 }

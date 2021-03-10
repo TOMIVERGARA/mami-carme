@@ -27,6 +27,11 @@ module.exports.login = (req, res) => {
 }
 
 //EXPRESS ROUTE
+module.exports.clients = (req, res) => {
+  res.sendFile('public/clients/index.html', { root: '.' });
+}
+
+//EXPRESS ROUTE
 module.exports.getTodayStory = async (req, res) => {
     const sendFile = () => res.sendFile(`src/resources/img/stories/today/${new Date().getDay()}.png`, { root: '.' });
 

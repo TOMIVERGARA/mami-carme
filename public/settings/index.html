@@ -66,8 +66,11 @@
                 <a href="/birthday" class="navbar-item">
                   Cumpleaños
                 </a>
+                <a href="/clients" class="navbar-item is-tab">
+                  Clientes
+                </a>
                 <hr class="navbar-divider">
-                <a class="navbar-item">
+                <a href="https://github.com/TOMIVERGARA/mami-carme/issues/new" class="navbar-item">
                   Reportar un problema
                 </a>
               </div>
@@ -103,7 +106,8 @@
                       <div class="tabs">
                         <ul>
                           <li onclick="changeTab(event, 'tab1')" class="tablinks is-active"><a>Insta Stories</a></li>
-                          <li onclick="changeTab(event, 'tab2')" class="tablinks"><a>General</a></li>
+                          <li onclick="changeTab(event, 'tab2')" class="tablinks"><a>API Keys</a></li>
+                          <li onclick="changeTab(event, 'tab3')" class="tablinks"><a>General</a></li>
                         </ul>
                       </div>
                       <div id="tab1" class="tabcontent">
@@ -128,6 +132,56 @@
                       </div>
                       </div>
                       <div id="tab2" style="display: none;" class="tabcontent">
+                      <div class="columns">
+                          <div class="column is-6">
+                              <h3 class="title is-6">Crear API Keys 🔑</h3>
+                              <form id="newKeyForm" onsubmit="createApiKey(event)">
+                                <div class="field">
+                                  <label class="label">Dominio Autorizado</label>
+                                  <div class="control">
+                                    <input class="input" id="authorizedDomain" name="authorizedDomain" type="text" placeholder="mydomain.com" required>
+                                  </div>
+                                </div>
+                                <div class="field">
+                                  <label class="label">Nombre/Descripcion del servicio</label>
+                                  <div class="control">
+                                    <input class="input" id="serviceName" name="serviceName" type="text" placeholder="Servicio de Registro de clientes" required>
+                                  </div>
+                                </div>
+                                <div class="columns">
+                                  <div class="field column">
+                                    <label class="label">Nombre del Creador</label>
+                                    <div class="control">
+                                      <input class="input" id="keyCreator" name="keyCreator" type="text" placeholder="Jonatan Viale" required>
+                                    </div>
+                                  </div>
+                                  <div class="field column">
+                                    <label class="label">AppAccess</label>
+                                    <div class="control">
+                                      <div class="select fullwidth">
+                                        <select class="fullwidth" id="appAccess" name="appAccess" required>
+                                          <option>Selecciona una app</option>
+                                          <option value="@addClient">> addClient - Aplicacion Añadir Clientes</option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="field">
+                                  <div class="control">
+                                    <button class="button is-primary fullwidth">Submit</button>
+                                  </div>
+                                </div>
+                              </form>
+                          </div>
+                          <div class="column is-6">
+                              <h3 class="title is-6">Llaves Activas 🔒</h3>
+                              <div id="newKeyNotification"></div>
+                              <div id="activeKeysList"></div>
+                          </div>
+                      </div>
+                      </div>
+                      <div id="tab3" style="display: none;" class="tabcontent">
                         <div class="columns">
                              <div class="column is-6">
                                 <h3 class="title is-6">Usuarios</h3>
@@ -182,8 +236,8 @@
 <script src="https://unpkg.com/toastedjs/dist/toasted.min.js"></script>
 <!-- HTML Templater -->
 <script src="https://unpkg.com/uhtml"></script>
-<!-- Img Grid -->
-<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<!-- HTML Templater -->
+<script src="https://unpkg.com/uhtml"></script>
 <!-- Controllers -->
 <script src="./controller.index.js"></script>
 </html>

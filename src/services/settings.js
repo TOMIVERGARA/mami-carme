@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require("path");
 const multer = require("multer");
 
-const configFile = require('../../config.json')
+const configFile = require('../../config.json');
 
 
 //Uploader
@@ -38,20 +38,20 @@ module.exports.uploadResurce = multer({ storage: storage, fileFilter: fileFilter
 //EXPRESS ROUTE
 module.exports.getAvailableBackgrounds = (req, res) => {
     const fileNames = fs.readdirSync(__dirname + '/../resources/img/stories').filter(file => file.endsWith('.png'));
-    res.status(200).send({ status: 'success', data: { message: 'List all availabe backgrounds', files: fileNames} });
+    return res.status(200).send({ status: 'success', data: { message: 'List all availabe backgrounds', files: fileNames} });
 }
 
 //EXPRESS ROUTE
 module.exports.getAvailableFonts = (req, res) => {
     const fileNames = fs.readdirSync(__dirname + '/../resources/fonts').filter(file => file.endsWith('.ttf'));
-    res.status(200).send({ status: 'success', data: { message: 'List all availabe fonts', files: fileNames} });
+    return res.status(200).send({ status: 'success', data: { message: 'List all availabe fonts', files: fileNames} });
 }
 
 //EXPRESS ROUTE
 module.exports.removeFontByName = async (req, res) => {
     try {
         await fs.unlink(__dirname + `/../resources/fonts/${req.body.filename}`);
-        res.status(200).send({ status: 'success', data: { message: 'Deleted font file', files: [req.body.filename]} });
+        return res.status(200).send({ status: 'success', data: { message: 'Deleted font file', files: [req.body.filename]} });
     } catch (error) {
         return res.status(500).send({ status: 'error', error: { code: '105', message: 'There was an error deleting the font', target: 'fs', error: error } });
     }
@@ -61,7 +61,7 @@ module.exports.removeFontByName = async (req, res) => {
 module.exports.removeBackgroundByName = async (req, res) => {
     try {
         await fs.unlink(__dirname + `/../resources/img/stories/${req.body.filename}`);
-        res.status(200).send({ status: 'success', data: { message: 'Deleted background file', files: [req.body.filename]} });
+        return res.status(200).send({ status: 'success', data: { message: 'Deleted background file', files: [req.body.filename]} });
     } catch (error) {
         return res.status(500).send({ status: 'error', error: { code: '105', message: 'There was an error deleting the background img', target: 'fs', error: error } });
     }
@@ -75,7 +75,7 @@ module.exports.toggleSetting = (req, res) => {
        configFile.user_settings[setting] = !previousUserSetting;
        fs.writeFile(__dirname + '/../../config.json', JSON.stringify(configFile, null, 2), error => {
             if (error) return res.status(500).send({ status: 'error', error: { code: '109', message: 'There was an error toggling the setting', target: 'config', error: error } });
-            res.status(200).send({ status: 'success', data: { message: 'Toogled setting', setting: setting, value: configFile.user_settings[setting]} });
+            return res.status(200).send({ status: 'success', data: { message: 'Toogled setting', setting: setting, value: configFile.user_settings[setting]} });
        });
     }else{
         return res.status(400).send({ status: 'error', error: { code: '110', message: 'The specified setting doesnt exist.', target: 'config', setting: setting} });
@@ -83,5 +83,5 @@ module.exports.toggleSetting = (req, res) => {
 }
 
 module.exports.getSettings = (req, res) => {
-    res.status(200).send({ status: 'success', data: { message: 'Get settings', settings: configFile.user_settings} });
+    return res.status(200).send({ status: 'success', data: { message: 'Get settings', settings: configFile.user_settings} });
 }

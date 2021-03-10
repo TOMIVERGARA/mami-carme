@@ -4,6 +4,23 @@ const { createJwt, validateJwt } = require('./jwt');
 //EXPRESS ROUTE
 module.exports.login = async (req, res) => {
     const userOtp = req.body.otp;
+
+    //DEV LOGIN
+    if(process.env.ENV == 'DEVELOPMENT'){
+        if(userOtp == process.env.DEV_LOGIN_PASSWD){
+            const userObject = {
+                timestamp: new Date(),
+                otp: userOtp,
+                appVersion: "DEVELOPMENT"
+            };
+            const jwt = await createJwt(userObject);
+            return res.status(200).send({ status: 'success', data: { message: 'Login Service', token: jwt}})
+        }else{
+            return res.status(400).send({ status: 'error', error: { code: '111', message: 'The OTP is invalid', target: 'login'} });
+        }
+    }
+
+    //PROPER LOGIN
     if(validateOtp(userOtp)){
         const userObject = {
             timestamp: new Date(),

@@ -5,6 +5,7 @@
     "automatic_channels_have_indicator": true,
     "voice_channels_category_name": "Voice Channels"
   },
+  "api_keys": [],
   "api": {
     "endpoints": {
       "index": "/",
@@ -12,6 +13,7 @@
       "add_birthday": "/birthday/add_birthday",
       "settings": "/settings",
       "login": "/login",
+      "clients": "/clients",
       "add_birthday_service": "/api/v1/birthday/add_birthday",
       "get_today_birthday_story": "/api/v1/birthday/get_today_story",
       "get_birthday_by_date": "/api/v1/birthday/get_birthday_by_date",
@@ -19,6 +21,9 @@
       "remove_document_by_id": "/api/v1/birthday/remove_document_by_id",
       "add_client_service": "/api/v1/client/add_client",
       "export_clients": "/api/v1/client/export_clients",
+      "clients_report": "/api/v1/client/clients_report",
+      "get_clients": "/api/v1/client/get_clients",
+      "delete_clients": "/api/v1/client/delete_client_by_email",
       "get_available_backgrounds": "/api/v1/settings/get_available_backgrounds",
       "get_available_fonts": "/api/v1/settings/get_available_fonts",
       "remove_font_by_name": "/api/v1/settings/remove_font_by_name",
@@ -27,7 +32,11 @@
       "toggle_setting": "/api/v1/settings/toggle_setting",
       "get_settings": "/api/v1/settings/get_settings",
       "login_with_otp": "/api/v1/auth/login_with_otp",
-      "validate_jwt": "/api/v1/auth/validate_jwt"
+      "validate_jwt": "/api/v1/auth/validate_jwt",
+      "create_api_key": "/api/v1/auth/create_api_key",
+      "get_api_keys": "/api/v1/auth/get_api_keys",
+      "delete_api_key": "/api/v1/auth/delete_api_key",
+      "pause_api_key": "/api/v1/auth/pause_api_key"
     }
   }
 }
